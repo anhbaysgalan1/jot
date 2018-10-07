@@ -4,27 +4,27 @@ import (
     "fmt"
     "os"
 
-    "github.com/mkideal/cli"
     "github.com/ipfs/go-ipfs-api"
+
+    "github.com/ex0dus-0x/jot/cmd"
 )
+
 
 // ipfs global bindings
 var sh *shell.Shell
 var ncalls int
 
+func init() {
+    fmt.Println("Doing init() stuff")
+}
 
 func main() {
 
-    var cli_root = cli.Root(root,
-                            cli.Tree(help),
-                            cli.Tree(child))
-
-    var err = cli_root.Run(os.Args[1:]);
-    if err != nil {
-        fmt.Fprintln(os.Stderr, err)
-        os.Exit(1)
-    }
+    // perform argument parsing
+    cmd.Execute()
 
     // initialize new shell
     sh = shell.NewShell("localhost:5001")
+
+    os.Exit(0)
 }
